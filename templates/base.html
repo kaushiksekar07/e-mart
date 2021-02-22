@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      <link rel="shortcut icon" type="image/x-icon" href="static/images/emart-icon.ico"/>
+      <title>
+          {% block title %}{% endblock %}
+      </title>
+  </head>
+  <body class="font-monospace" style="position: relative;min-height: 100vh;">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <form method="GET" action="/"><a class="px-3 navbar-brand"><span class="text-decoration-underline text-primary fs-5 fw-bolder">E-Mart</span></a></form>
+              <button class="navbar-toggler btn  btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link px-3 fs-5 fw-bold text-light" aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link px-3 fs-5 fw-bold text-light" aria-current="page" href="/deals">Today Deals</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link px-3 fs-5 fw-bold text-light active" aria-current="page" href="/reviews">Reviews</a>
+                  </li>
+                </ul>
+              {% block customAnalysisInput %}{% endblock%}
+            </div>
+      </nav>
+      <div class="container" style="padding-bottom: 100px;">
+          {% block content %}{% endblock %}
+      </div>
+      {% block customScript %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  </body>
+
+  {% block footer %}{% endblock %}
+</html>

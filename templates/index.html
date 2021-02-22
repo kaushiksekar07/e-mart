@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}E-Mart | Customer Feedback Sentiment Analysis{% endblock %}
+
+{% block customAnalysisInput %}
+
+    <form class="input-group mb-3 w-50 pt-2" action="/reviews" method="POST">
+        <input class="form-control" required name="searchKey" type="search" placeholder="Type a name of a product or a brand" aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+{% endblock%}
+
+{% block content%}
+
+    <div class="row font-monospace">
+        <div class="col col-md-6 mt-4">
+            <h1 class="my-5 pt-5 text-decoration-underline text-primary fs-1 fw-bolder">E-Mart</h1>
+            <p class="lh-lg pt-2 fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, eaque maxime? Vitae dolores repudiandae minus ab repellendus placeat consequatur esse.</p>
+            <div class="">
+                <a href="/deals" class="btn btn-primary btn-lg">Shop Now</a>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <img src="static/images/emart.png" class="img-fulid float-md-end pt-3 d-none d-md-block d-lg-block" width="80%">
+        </div>
+    </div>
+    
+
+{% endblock %}
+
+
+{% block footer %}
+<footer class="footer bg-dark text-light pt-2 w-100" style="position: absolute;bottom: 0;width: 100%;height: 100px;">
+    <div class="container">
+      <div class="row">
+          <div class="col-6 col-sm-4 float-left align-self-center">
+              <ul class="list-unstyled">
+                  <li>
+                      <h6>Tata Consultancy Services<br><span class="fs-4">Inframind Season IV</span></h6>
+                  </li>
+              </ul> 
+          </div>
+          <div class="col-6 col-sm-4 text-center align-self-center">
+              <p class="lh-md text-center "><span class="text-decoration-underline text-primary fs-2 fw-bolder font-monospace">E-Mart</span><br><span class="fs-6 text-light">Customer Feedback Sentiment Analysis</span></p>
+              
+          </div>
+      
+          <div class="col-12 col-sm-4 align-self-center">
+              <p class="lh-md text-center"><span class="fs-5 fw-bolder">Enterprise AI</span><br><span class="text-muted">S. Kaushik - CT20182585528</span></p>
+          </div>
+      </div>
+    </div>
+</footer>
+{% endblock%}
+
+

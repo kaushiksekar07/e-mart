@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}E-Mart | Today Deals{% endblock %}
+
+{% block customAnalysisInput %}
+
+    <form class="input-group mb-3 w-50 pt-2" action="/reviews" method="POST">
+        <input class="form-control" required name="searchKey" type="search" placeholder="Type a name of a product or a brand" aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+{% endblock%}
+
+{% block content%}
+
+    <h5 class="text-center fs-3 my-5"><span class="text-primary">TODAY</span> Deals contains great deals offered by retailers to <span class="text-primary">TODAY</span> viewers.</h5>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 pb-5">
+        {% for item in data %}
+            <div class="col">
+                <form method="POST">
+                    <div class="card h-100" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px; border:none;">
+                        <img src="/static/images/{{item['pimage']}}" class="card-img-top" >
+                        <div class="card-body">
+                            <h5 class="card-title" value="{{item['code']}}">{{item['pname']}}</h5>
+                            <p class="card-text fs-6 text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, deserunt.</p>
+                            <p class="card-text fs-4 fw-bolder">₹ {{item['pprice']}}</p>
+                            <button class="btn btn-primary btn-lg fw-bolder" type="submit" name="itemCode" value="{{item['pid']}}" style="width: 100%;" >View</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+

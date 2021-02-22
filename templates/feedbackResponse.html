@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}E-Mart | Feedback Response{% endblock %}
+
+{% block customAnalysisInput %}
+
+    <form class="input-group mb-3 w-50 pt-2" action="/reviews" method="POST">
+        <input class="form-control" required name="searchKey" type="search" placeholder="Type a name of a product or a brand" aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+{% endblock%}
+
+{% block content%}
+
+    <div class="row">
+        <div class="col-12 mt-5 text-center">
+            <form action="/deals" method="GET">
+                    <img src="/static/images/{{sentimentImage}}" class="img-fulid" width="25%">
+                    <h2 class="mt-5">{{responseGreet}}, {{customerName}}!</h2>
+                    <p class="fs-1">{{responseMessage}}</p>
+                    <button class="m-3 btn btn-primary fw-bolder" type="submit">Continue Shopping</button>  
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      <link rel="shortcut icon" type="image/x-icon" href="/static/images/emart-icon.ico"/>
+      <title>
+          E-Mart | Products
+      </title>
+  </head>
+  <body class="font-monospace">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            
+            <a class="px-3 navbar-brand">
+                <span class="text-decoration-underline text-primary fs-5 fw-bolder">E-Mart</span>
+                <span class="text-light fw-bolder" style="font-size:small;">Admin</span>
+            </a>
+            
+            <button class="navbar-toggler btn  btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link px-3 fs-5 fw-bold text-light" aria-current="page" href="/admin/products">Our Products</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link px-3 fs-5 fw-bold text-light active" aria-current="page" href="/admin/feedbacks">Feedbacks</a>
+                    </li>
+                </ul>
+                <a class="btn btn-primary" href="/admin">Log Out</a>
+               
+            </div>
+      </nav>
+      <div class="container">
+        <h3 class="mt-3 fs-2 fw-bolder">{{data.pname}}</h3>
+        <hr style="border-top: 1px solid #8c8b8b;">
+
+        <div class="row mb-5">
+            <div class="col col-md-6">
+                <img src="/static/images/{{data.itemImage}}" class="img-fluid" width="80%">
+                <p>{{data.pdescp}}</p>
+                <h4 class="fw-bolder">₹ {{data.pprice}}</h4>
+            </div>
+            <div class="col col-md-6">
+                {% if data.count > 0: %}
+                    <div class="row m-2 justify-content-center">
+                        <img src="/static/charts/{{data.feedbackChart}}" class="img-fluid" style="width: 80%;">
+                    </div>
+                    <div class="row m-2 justify-content-center">
+                        <div class="col-6">
+                            <table class="table p-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Feedbacks</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" >Positive</th>
+                                        <td style="color:green;">{{data.positiveReviews}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" >Neutral</th>
+                                        <td style="color:orange;">{{data.neutralReviews}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Negative</th>
+                                        <td style="color:red;">{{data.negativeReviews}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <form action="/admin/feedbacks" method="GET">
+                        <input class="d-none" name="pid" value="{{data.pid}}"/>
+                        <input class="d-none" name="sentiment" value="all"/>
+                        <div class="row justify-content-center">
+                            <button type="submit" class="btn btn-dark btn-lg fw-bolder" style="width: 75%;">View Customer Feedbacks</button>
+                        </div>
+                    </form>
+                    {% else %}
+                        <div class="my-5 py-5 text-center text-muted">
+                            <h5>No customer feedback found.</h5>
+                        </div>
+                {% endif %}
+                
+                
+                    
+            </div>
+            
+        </div>    
+        
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  </body>
+
+</html>

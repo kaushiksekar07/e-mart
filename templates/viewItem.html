@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block title %}E-Mart | {{data.get('pname')}}{% endblock %}
+
+{% block customAnalysisInput %}
+
+    <form class="input-group mb-3 w-50 pt-2" action="/reviews" method="POST">
+        <input class="form-control" required name="searchKey" type="search" placeholder="Type a name of a product or a brand" aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+{% endblock%}
+
+{% block content%}
+    <h3 class="mt-3 fs-2 fw-bolder">{{data.get('pname')}}</h3>
+    <hr style="border-top: 1px solid #8c8b8b;">
+
+    <div class="row mb-5">
+        <div class="col col-md-6">
+            <div class="row m-2">
+                <img src="/static/charts/{{data.get('reviewChart')}}" class="img-fluid" style="width: 80%;">
+            </div>
+            <div class="row m-2">
+                <div class="col-6">
+                    <table class="table p-2">
+                        <thead>
+                            <tr>
+                                <th scope="col">Reviews</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" >Positive</th>
+                                <td style="color:green;">{{data.get('positiveReviews')}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" >Neutral</th>
+                                <td style="color:orange;">{{data.get('neutralReviews')}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Negative</th>
+                                <td style="color:red;">{{data.get('negativeReviews')}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                  
+        </div>
+        <div class="col col-md-6">
+            <img src="/static/images/{{data.get('itemImage')}}" class="img-fluid" width="80%">
+            <p>{{data.get('pdescp')}}</p>
+            <h4 class="fw-bolder">₹ {{data.get('pprice')}}</h4>
+
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" id="recordFeedbackBtn" class="m-2 btn btn-primary btn-lg fw-bolder" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#audioFeedbackModal">
+                        Record feedback
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="m-2 btn btn-primary btn-lg fw-bolder" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#textFeedbackModal">
+                        Write feedback
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="m-3 btn btn-dark btn-lg fw-bolder" data-bs-toggle="modal" data-bs-target="#buynowModal">Add to Watchlist</button>
+            </div>
+            
+                      
+              
+            <div class="modal fade" id="buynowModal" tabindex="-1" aria-labelledby="buynowModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="buynowLabel">Watchlist</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <img src="/static/images/{{data.itemImage}}" class="col-5" width="25%">
+                                <p class="col-7 pt-2 fs-5">{{data.get('pname')}} is added to your watchlist.</p>
+                            </div>
+                        </div>
+                       
+                            
+                    </div>
+                </div>
+            </div> 
+            <div class="modal fade" id="textFeedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="feedbackModalLabel">Write a feedback on {{data.get('pname')}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/feedback" method="POST">
+                            <div class="modal-body">
+                                <div class="row p-4">
+                                    <div class="col col-md-7">
+                                        <img src="/static/images/{{data.itemImage}}" class="img-fluid" style="width: 80%;">
+                                        <p class="m-3 p-2  text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit labore minus distinctio? Repellat beatae sapiente praesentium voluptatibus alias officia veritatis!</p>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <h3>Give us a chance to know your <span class="text-primary text-decoration-underline">feelings</span> with your <span class="text-primary text-decoration-underline">feedback!</span></h3>
+                                        <div class="mt-3 mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" required class="form-control" name="customerName" id="name" aria-describedby="nameFeedback">
+                                        </div>
+                                        <div class="row">
+                                            <div class="mt-3 col-md-6">
+                                                <label for="mobile" class="form-label">Mobile</label>
+                                                <input type="text" class="form-control" name="customerMobile" id="mobile" aria-describedby="mobileFeedback">
+                                            </div>
+                                            <div class="mt-3 col-md-6">
+                                                <label for="email" class="form-label">Email address</label>
+                                                <input type="email" required class="form-control" name="customerEmail" id="email" aria-describedby="emailFeedback">
+                                            </div>
+                                        </div>
+                                        <div id="emailHelp" class="form-text">We'll never share your details with anyone else.</div>
+                                        <div class=" mt-3">
+                                            <label for="feeback" class="form-label">Feedback</label>
+                                            <textarea required class="form-control" name="customerFeedback" rows=7 id="feedback" style="resize:none" aria-describedby="customerFeedback"></textarea>
+                                        </div>
+                                        <input class="d-none" name="pid" value="{{data.pid}}"/>
+                                        <input class="d-none" name="pname" value="{{data.pname}}"/>
+                                        <input class="d-none" name="feedbackType" value="text"/>
+                                    </div>
+                                </div>
+                                <div class="float-end px-3">
+                                    <button type="button" class="btn btn-dark fw-bolder" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary fw-bolder">Submit</button>
+                                </div>
+                                
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div> 
+            <div class="modal fade" id="audioFeedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="feedbackModalLabel">Record your feedback on {{data.get('pname')}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="audioFeedbackForm">
+                            <div class="modal-body">
+                                <div class="row p-4">
+                                    <div class="col col-md-7">
+                                        <img src="/static/images/{{data.itemImage}}" class="img-fluid" style="width: 80%;">
+                                        <p class="m-3 p-2  text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit labore minus distinctio? Repellat beatae sapiente praesentium voluptatibus alias officia veritatis!</p>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <h3>Give us a chance to know your <span class="text-primary text-decoration-underline">feelings</span> with your <span class="text-primary text-decoration-underline">feedback!</span></h3>
+                                        <div class="mt-3 mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" required class="form-control" name="customerName" id="name" aria-describedby="nameFeedback">
+                                        </div>
+                                        <div class="row">
+                                            <div class="mt-3 col-md-6">
+                                                <label for="mobile" class="form-label">Mobile</label>
+                                                <input type="text" class="form-control" name="customerMobile" id="mobile" aria-describedby="mobileFeedback">
+                                            </div>
+                                            <div class="mt-3 col-md-6">
+                                                <label for="email" class="form-label">Email address</label>
+                                                <input type="email" required class="form-control" name="customerEmail" id="email" aria-describedby="emailFeedback">
+                                            </div>
+                                        </div>
+                                        <div id="emailHelp" class="form-text">We'll never share your details with anyone else.</div>
+                                        <div class=" mt-3">
+                                            <label for="feeback" class="form-label">Feedback</label>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button id="record" type="button" class="text-light btn" style="min-width: 80px; background-color: #F93154;"value="stopped">Record</button>
+
+                                                </div>
+                                                <div class="col-8">
+                                                    <audio id="feedbackAudio"></audio>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <input class="d-none" name="pid" id="pid" value="{{data.pid}}"/>
+                                        <input class="d-none" name="pname" id="pname" value="{{data.pname}}"/>
+                                        <input class="d-none" name="feedbackType" id="feedbackType" value="audio"/>
+                                        
+                                    </div>
+                                </div>
+                                <div class="float-end px-3">
+                                    <button type="button" class="btn btn-dark fw-bolder" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary fw-bolder">Submit</button>
+                                </div>
+                                
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div> 
+            
+        </div>
+    </div>    
+    
+
+
+{% endblock%}
+
+{% block customScript %}
+<script>
+
+    
+        navigator.mediaDevices.getUserMedia({audio:true})
+            .then(stream => {handlerFunction(stream)})
+
+   
+
+
+    let blob;
+    const handlerFunction = (stream) => {
+        rec = new MediaRecorder(stream);
+        rec.ondataavailable = e => {
+            audioChunks.push(e.data);
+            if (rec.state == "inactive") {
+                blob = new Blob(audioChunks,{type:'audio/wav'});
+                feedbackAudio.src = URL.createObjectURL(blob);
+                feedbackAudio.controls=true;
+                feedbackAudio.autoplay=true;
+                feedbackAudio.value = blob;
+
+                const audioFile = new File([blob], "audio.wav", {type: "audio/wav"});
+                audioBlob.src = audioFile;
+                audioBlob.filename = URL.createObjectURL(audioFile);
+            }
+        }
+    }
+    
+    const getBlob = () =>  { return blob; }
+        
+
+    record.onclick = e => {
+
+        if (record.value == "stopped") {
+
+            document.getElementById("record").innerHTML = "Stop"
+            record.value = "recording"
+            record.style.backgroundColor = "#FFA900"
+            audioChunks = [];
+             rec.start();
+           
+        } else if (record.value == "recording") {
+
+            document.getElementById("record").innerHTML = "Record"
+            record.value = "stopped"
+            record.style.backgroundColor = "#F93154"
+            rec.stop();
+        }
+    }
+
+   
+    const form = document.getElementById("audioFeedbackForm");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+       
+        let formData = new FormData()
+        formData.append("customerName", form.name.value);
+        formData.append("customerMobile", form.mobile.value);
+        formData.append("customerEmail", form.email.value);
+        formData.append("pid", form.pid.value);
+        formData.append("pname", form.pname.value);
+        formData.append("feedbackType", form.feedbackType.value);
+        
+        formData.append("audioBlob", getBlob(), "audio.wav");
+
+        fetch('/feedback', {
+            method: 'POST',
+            body: formData,
+            
+        }).then((response)=>{
+            return response.text();
+        }).then((html) => {
+            document.body.innerHTML = html
+        });
+
+
+    });
+
+
+</script>
+
+{% endblock %}
